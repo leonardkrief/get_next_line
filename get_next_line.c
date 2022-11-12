@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 15:24:40 by leonardkrie       #+#    #+#             */
-/*   Updated: 2022/10/03 19:40:42 by lkrief           ###   ########.fr       */
+/*   Updated: 2022/11/12 15:52:00 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,31 +20,29 @@ void	free_gnl(char *s, char *tmp)
 		free(s);
 }
 
-char	*first_gnl(char *buff)
+char	*treatment_gnl(char *buff)
 {
 	int		i;
 	int		j;
 	char	*res;
 
 	i = 0;
-	res = NULL;
 	while (buff[i] && buff[i] != '\n')
 		i++;
-	if (buff[i] == '\n')
+	if (buff[i] != '\n')
+		return (NULL);
+	res = malloc(sizeof(*res) * (i + 2));
+	if (!res)
+		return (NULL);
+	j = -1;
+	while (++j <= i)
+		res[j] = buff[j];
+	res[i + 1] = '\0';
+	j = 0;
+	while (i + 1 + j <= BUFFER_SIZE)
 	{
-		res = malloc(sizeof(*res) * (i + 2));
-		if (!res)
-			return (NULL);
-		j = -1;
-		while (++j <= i)
-			res[j] = buff[j];
-		res[i + 1] = '\0';
-		j = 0;
-		while (i + 1 + j <= BUFFER_SIZE)
-		{
-			buff[j] = buff[i + 1 + j];
-			j++;
-		}
+		buff[j] = buff[i + 1 + j];
+		j++;
 	}
 	return (res);
 }
@@ -59,22 +57,19 @@ char	*gnl_strjoin(char *res, char *buff)
 		return (ft_strdup(buff));
 	if (buff == NULL)
 		return (res);
-	else
+	i = 0;
+	tmp = NULL;
+	while (buff[i] && buff[i] != '\n')
+		i++;
+	s = res;
+	if (buff[i] == '\n')
 	{
-		i = 0;
-		tmp = NULL;
-		while (buff[i] && buff[i] != '\n')
-			i++;
-		s = res;
-		if (!buff[i])
-			res = ft_strjoin(res, buff);
-		else
-		{
-			tmp = first_gnl(buff);
-			res = ft_strjoin(res, tmp);
-		}
-		free_gnl(s, tmp);
+		tmp = treatment_gnl(buff);
+		res = ft_strjoin(res, tmp);
 	}
+	else
+		res = ft_strjoin(res, buff);
+	free_gnl(s, tmp);
 	return (res);
 }
 
@@ -92,13 +87,13 @@ char	*get_next_line(int fd)
 		ret = read(fd, buff, BUFFER_SIZE);
 	buff[ret] = '\0';
 	res = NULL;
-	tmp = first_gnl(buff);
+	tmp = treatment_gnl(buff);
 	while (!tmp && ret && buff[0] != '\0')
 	{
 		res = gnl_strjoin(res, buff);
 		ret = read(fd, buff, BUFFER_SIZE);
 		buff[ret] = '\0';
-		tmp = first_gnl(buff);
+		tmp = treatment_gnl(buff);
 	}
 	res = gnl_strjoin(res, tmp);
 	if (tmp)

@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 15:24:43 by leonardkrie       #+#    #+#             */
-/*   Updated: 2022/10/03 05:26:38 by lkrief           ###   ########.fr       */
+/*   Updated: 2022/11/12 15:28:49 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 
 size_t	ft_strlen(const char *s)
 {
-	int		i;
 	size_t	len;
 
-	i = 0;
 	len = 0;
-	while (s[i++])
+	while (s[len])
 		len++;
 	return (len);
 }
@@ -56,18 +54,12 @@ char	*ft_strdup(char *src)
 		return (NULL);
 	size_src = ft_strlen(src);
 	copy = malloc(sizeof(*copy) * (size_src + 1));
-	if (copy == NULL)
+	if (!copy)
 		return (NULL);
-	else
-	{
-		i = 0;
-		while (i < size_src)
-		{
-			copy[i] = src[i];
-			i++;
-		}
-		copy[i] = '\0';
-	}
+	i = -1;
+	while (++i < size_src)
+		copy[i] = src[i];
+	copy[i] = '\0';
 	return (copy);
 }
 
