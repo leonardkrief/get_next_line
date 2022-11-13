@@ -52,6 +52,8 @@ void	ft_reset(char *buff)
 	while (buff[i])
 		buff[j++] = buff[i++];
 	buff[j] = '\0';
+	if (j == 0)
+		buff[BUFFER_SIZE + 1] = 1;
 }
 
 char	*ft_strdup(char *src)
@@ -73,24 +75,30 @@ char	*ft_strdup(char *src)
 	return (copy);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *res, char const *buff)
 {
 	size_t	i;
 	size_t	j;
 	char	*join;
 
-	if (!s1 || !s2)
+	if (buff[0] == 0)
 		return (NULL);
-	join = malloc(sizeof(*join) * (ft_strlen(s1) + ft_strlen(s2) + 2));
+	if (res == NULL)
+		return (ft_strdup((char *)buff));
+	join = malloc(sizeof(*join) * (ft_strlen(res) + ft_strlen(buff) + 1));
 	if (!join)
 		return (NULL);
 	i = 0;
 	j = 0;
-	while (s1[i])
-		join[j++] = s1[i++];
+	while (res[i])
+		join[j++] = res[i++];
 	i = 0;
-	while (s2[i])
-		join[j++] = s2[i++];
-	join[j] = '\0';
+	while (buff[i] && buff[i] != '\n')
+		join[j++] = buff[i++];
+	if (buff[i] == '\n')
+	{
+		join[j++] = '\n';
+		join[j] = '\0';
+	}
 	return (join);
 }

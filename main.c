@@ -16,12 +16,12 @@ int	main(void)
 {
 	int	fd;
 	char *tt;
-	char buf[BUFFER_SIZE];
 
-	buf[BUFFER_SIZE - 1] = 0;
-
-	fd = open("./41_with_nl", O_RDONLY);
+	fd = open("./multiple_line_with_nl", O_RDONLY);
 	
+	tt = get_next_line(fd);
+	printf("%s", tt);
+	free(tt);
 	tt = get_next_line(fd);
 	printf("%s", tt);
 	free(tt);
