@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 15:24:40 by leonardkrie       #+#    #+#             */
-/*   Updated: 2022/10/03 06:29:16 by lkrief           ###   ########.fr       */
+/*   Updated: 2022/11/13 08:26:58 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,22 @@ int	main(void)
 
 	buf[BUFFER_SIZE - 1] = 0;
 
-	fd = open("./test.txt", O_RDONLY);
+	fd = open("./41_with_nl", O_RDONLY);
 	
 	tt = get_next_line(fd);
+	printf("%s", tt);
 	free(tt);
 	tt = get_next_line(fd);
+	printf("%s", tt);
 	free(tt);
 	tt = get_next_line(fd);
+	printf("%s", tt);
 	free(tt);
 	tt = get_next_line(fd);
+	printf("%s", tt);
 	free(tt);
 	tt = get_next_line(fd);
-	free(tt);
-	tt = get_next_line(fd);
-	free(tt);
-	tt = get_next_line(fd);
-	free(tt);
-	tt = get_next_line(fd);
-	free(tt);
-		tt = get_next_line(fd);
+	printf("%s", tt);
 	free(tt);
 
 

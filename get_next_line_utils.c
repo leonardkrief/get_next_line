@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/01 15:24:43 by leonardkrie       #+#    #+#             */
-/*   Updated: 2022/11/12 15:28:49 by lkrief           ###   ########.fr       */
+/*   Created: 2022/11/12 21:21:51 by lkrief            #+#    #+#             */
+/*   Updated: 2022/11/13 07:43:15 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,36 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+int	ft_belongs(const char *set, char s)
 {
-	size_t	i;
-	size_t	j;
-	char	*join;
+	int	i;
 
-	if (!s1 || !s2)
-		return (NULL);
-	join = malloc(sizeof(*join) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!join)
-		return (NULL);
+	if (!set)
+		return (0);
+	i = 0;
+	while (set[i])
+	{
+		if (set[i] == s)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+void	ft_reset(char *buff)
+{
+	int	i;
+	int	j;
+
 	i = 0;
 	j = 0;
-	while (s1[i])
-		join[j++] = s1[i++];
-	i = 0;
-	while (s2[i])
-		join[j++] = s2[i++];
-	join[j] = '\0';
-	return (join);
+	while (buff[i] && buff[i] != '\n')
+		i++;
+	if (buff[i] == '\n')
+		i++;
+	while (buff[i])
+		buff[j++] = buff[i++];
+	buff[j] = '\0';
 }
 
 char	*ft_strdup(char *src)
@@ -53,7 +63,7 @@ char	*ft_strdup(char *src)
 	if (!src)
 		return (NULL);
 	size_src = ft_strlen(src);
-	copy = malloc(sizeof(*copy) * (size_src + 1));
+	copy = malloc(sizeof(*copy) * (size_src + 2));
 	if (!copy)
 		return (NULL);
 	i = -1;
@@ -63,27 +73,24 @@ char	*ft_strdup(char *src)
 	return (copy);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t	len_s;
 	size_t	i;
-	char	*dst;
+	size_t	j;
+	char	*join;
 
-	if (!s)
+	if (!s1 || !s2)
 		return (NULL);
-	len_s = ft_strlen(s);
-	i = 0;
-	while (i < len && start + i < len_s)
-		i++;
-	dst = malloc(sizeof(*dst) * (i + 1));
-	if (!dst)
+	join = malloc(sizeof(*join) * (ft_strlen(s1) + ft_strlen(s2) + 2));
+	if (!join)
 		return (NULL);
 	i = 0;
-	while (i < len && start + i < len_s)
-	{
-		dst[i] = s[start + i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
+	j = 0;
+	while (s1[i])
+		join[j++] = s1[i++];
+	i = 0;
+	while (s2[i])
+		join[j++] = s2[i++];
+	join[j] = '\0';
+	return (join);
 }

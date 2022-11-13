@@ -5,98 +5,72 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/01 15:24:40 by leonardkrie       #+#    #+#             */
-/*   Updated: 2022/11/12 15:52:00 by lkrief           ###   ########.fr       */
+/*   Created: 2022/11/12 21:12:39 by lkrief            #+#    #+#             */
+/*   Updated: 2022/11/13 16:04:39 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	free_gnl(char *s, char *tmp)
+void	aux(char **res, char *buff)
 {
+	char	*tmp;
+
+	tmp = *res;
+	if (*res == NULL)
+		*res = ft_strdup(buff);
+	else
+		*res = ft_strjoin(*res, buff);
 	if (tmp)
 		free(tmp);
-	if (s)
-		free(s);
+	/*
+	tmp = *res;
+	if (buff[BUFFER_SIZE + 1] == 0)
+	{
+		if (*res == NULL)
+			*res = ft_strdup(buff);
+		else
+			*res = ft_strjoin(*res, buff);
+	}
+	if (tmp)
+	free(tmp);
+	*/
 }
 
-char	*treatment_gnl(char *buff)
+char	*one_line(char *buff, int fd)
 {
 	int		i;
-	int		j;
+	int		ret;
 	char	*res;
 
-	i = 0;
-	while (buff[i] && buff[i] != '\n')
-		i++;
-	if (buff[i] != '\n')
-		return (NULL);
-	res = malloc(sizeof(*res) * (i + 2));
-	if (!res)
-		return (NULL);
-	j = -1;
-	while (++j <= i)
-		res[j] = buff[j];
-	res[i + 1] = '\0';
-	j = 0;
-	while (i + 1 + j <= BUFFER_SIZE)
+	res = NULL;
+	ret = read(fd, buff, BUFFER_SIZE);
+	while (!ft_belongs(buff, '\n') && ret)
 	{
-		buff[j] = buff[i + 1 + j];
-		j++;
+		buff[ret] = '\0';
+		aux(&res, buff);
+		ret = read(fd, buff, BUFFER_SIZE);
 	}
+	if (buff[0])
+	{
+		buff[ret] = '\0';
+		aux(&res, buff);
+	}
+	i = 0;
+	while (res && res[i] && res[i] != '\n')
+		i++;
+	if (res && res[i] == '\n')
+		res[i + 1] = '\0';
+	ft_reset(buff);
 	return (res);
 }
 
-char	*gnl_strjoin(char *res, char *buff)
+char *get_next_line(fd)
 {
-	char	*s;
-	char	*tmp;
-	int		i;
-
-	if (res == NULL)
-		return (ft_strdup(buff));
-	if (buff == NULL)
-		return (res);
-	i = 0;
-	tmp = NULL;
-	while (buff[i] && buff[i] != '\n')
-		i++;
-	s = res;
-	if (buff[i] == '\n')
-	{
-		tmp = treatment_gnl(buff);
-		res = ft_strjoin(res, tmp);
-	}
-	else
-		res = ft_strjoin(res, buff);
-	free_gnl(s, tmp);
-	return (res);
-}
-
-char	*get_next_line(int fd)
-{
-	int			ret;
-	char		*res;
-	char		*tmp;
 	static char	buff[BUFFER_SIZE + 1];
 
 	if (fd == -1)
 		return (NULL);
-	ret = BUFFER_SIZE;
-	if (buff[0] == '\0')
-		ret = read(fd, buff, BUFFER_SIZE);
-	buff[ret] = '\0';
-	res = NULL;
-	tmp = treatment_gnl(buff);
-	while (!tmp && ret && buff[0] != '\0')
-	{
-		res = gnl_strjoin(res, buff);
-		ret = read(fd, buff, BUFFER_SIZE);
-		buff[ret] = '\0';
-		tmp = treatment_gnl(buff);
-	}
-	res = gnl_strjoin(res, tmp);
-	if (tmp)
-		free(tmp);
-	return (res);
+	buff[BUFFER_SIZE] = '\0';
+	return (one_line(buff, fd));
 }
