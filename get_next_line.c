@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 21:12:39 by lkrief            #+#    #+#             */
-/*   Updated: 2022/11/14 15:10:48 by lkrief           ###   ########.fr       */
+/*   Updated: 2022/11/14 15:21:50 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*one_line(char *buff, int fd)
 	return (res);
 }
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
 	static char	buff[BUFFER_SIZE + 1];
 
