@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 21:21:51 by lkrief            #+#    #+#             */
-/*   Updated: 2022/11/13 07:43:15 by lkrief           ###   ########.fr       */
+/*   Updated: 2022/11/14 15:06:21 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,27 +52,6 @@ void	ft_reset(char *buff)
 	while (buff[i])
 		buff[j++] = buff[i++];
 	buff[j] = '\0';
-	if (j == 0)
-		buff[BUFFER_SIZE + 1] = 1;
-}
-
-char	*ft_strdup(char *src)
-{
-	int		i;
-	int		size_src;
-	char	*copy;
-
-	if (!src)
-		return (NULL);
-	size_src = ft_strlen(src);
-	copy = malloc(sizeof(*copy) * (size_src + 2));
-	if (!copy)
-		return (NULL);
-	i = -1;
-	while (++i < size_src)
-		copy[i] = src[i];
-	copy[i] = '\0';
-	return (copy);
 }
 
 char	*ft_strjoin(char const *res, char const *buff)
@@ -84,21 +63,20 @@ char	*ft_strjoin(char const *res, char const *buff)
 	if (buff[0] == 0)
 		return (NULL);
 	if (res == NULL)
-		return (ft_strdup((char *)buff));
-	join = malloc(sizeof(*join) * (ft_strlen(res) + ft_strlen(buff) + 1));
+		join = malloc(sizeof(*join) * (ft_strlen(buff) + 1));
+	else
+		join = malloc(sizeof(*join) * (ft_strlen(res) + ft_strlen(buff) + 1));
 	if (!join)
 		return (NULL);
 	i = 0;
 	j = 0;
-	while (res[i])
+	while (res && res[i])
 		join[j++] = res[i++];
 	i = 0;
 	while (buff[i] && buff[i] != '\n')
 		join[j++] = buff[i++];
 	if (buff[i] == '\n')
-	{
 		join[j++] = '\n';
-		join[j] = '\0';
-	}
+	join[j] = '\0';
 	return (join);
 }

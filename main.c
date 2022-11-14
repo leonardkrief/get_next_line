@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 15:24:40 by leonardkrie       #+#    #+#             */
-/*   Updated: 2022/11/13 08:26:58 by lkrief           ###   ########.fr       */
+/*   Updated: 2022/11/14 15:07:30 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(void)
 	int	fd;
 	char *tt;
 
-	fd = open("./multiple_line_with_nl", O_RDONLY);
+	fd = open("./alternate_line_nl_no_nl", O_RDONLY);
 	
 	tt = get_next_line(fd);
 	printf("%s", tt);
@@ -37,6 +37,19 @@ int	main(void)
 	tt = get_next_line(fd);
 	printf("%s", tt);
 	free(tt);
+	tt = get_next_line(fd);
+	printf("%s", tt);
+	free(tt);
+	tt = get_next_line(fd);
+	printf("%s", tt);
+	free(tt);
+	tt = get_next_line(fd);
+	printf("%s", tt);
+	free(tt);
+	tt = get_next_line(fd);
+	printf("%s", tt);
+	free(tt);
+
 
 
 	

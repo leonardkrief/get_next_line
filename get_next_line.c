@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 21:12:39 by lkrief            #+#    #+#             */
-/*   Updated: 2022/11/13 16:04:39 by lkrief           ###   ########.fr       */
+/*   Updated: 2022/11/14 15:10:48 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,22 @@ char	*one_line(char *buff, int fd)
 	char	*res;
 
 	res = NULL;
-	ret = read(fd, buff, BUFFER_SIZE);
-	while (buff[0] && !ft_belongs(buff, '\n') && ret)
+	ret = 0;
+	aux(&res, buff);
+	if (!ft_belongs(buff, '\n'))
+		ret = read(fd, buff, BUFFER_SIZE);
+	while (ret && !ft_belongs(buff, '\n'))
 	{
 		buff[ret] = '\0';
 		aux(&res, buff);
-		buff[0] = 0;
 		ret = read(fd, buff, BUFFER_SIZE);
 	}
-	if ((buff[0] && !buff[BUFFER_SIZE + 1]) || (BUFFER_SIZE == 1 && ret))
+	if (ret)
 	{
-		if (ret > 0)
-			buff[ret] = '\0';
+		buff[ret] = '\0';
 		aux(&res, buff);
-		ft_reset(buff);
 	}
+	ft_reset(buff);
 	return (res);
 }
 
@@ -52,6 +53,5 @@ char *get_next_line(int fd)
 
 	if (fd == -1 || BUFFER_SIZE < 1 || read(fd, NULL, 0) < 0)
 		return (NULL);
-	buff[BUFFER_SIZE] = '\0';
 	return (one_line(buff, fd));
 }
