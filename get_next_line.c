@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 21:12:39 by lkrief            #+#    #+#             */
-/*   Updated: 2022/11/14 15:24:51 by lkrief           ###   ########.fr       */
+/*   Updated: 2022/11/14 15:28:09 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*get_next_line(int fd)
 {
 	static char	buff[BUFFER_SIZE + 1];
 
-	if (fd == -1 || BUFFER_SIZE < 1 || read(fd, NULL, 0) < 0)
+	if (BUFFER_SIZE < 1 || read(fd, NULL, 0) < 0)
 		return (NULL);
 	return (one_line(buff, fd));
 }
