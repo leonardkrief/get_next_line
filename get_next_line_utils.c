@@ -6,13 +6,13 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 21:21:51 by lkrief            #+#    #+#             */
-/*   Updated: 2022/11/14 15:24:46 by lkrief           ###   ########.fr       */
+/*   Updated: 2022/11/29 01:34:47 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlen_gnl(const char *s)
 {
 	size_t	len;
 
@@ -22,7 +22,7 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-int	ft_belongs(const char *set, char s)
+int	ft_belongs_gnl(const char *set, char s)
 {
 	int	i;
 
@@ -38,7 +38,7 @@ int	ft_belongs(const char *set, char s)
 	return (0);
 }
 
-void	ft_reset(char *buff)
+void	ft_reset_gnl(char *buff)
 {
 	int	i;
 	int	j;
@@ -54,7 +54,7 @@ void	ft_reset(char *buff)
 	buff[j] = '\0';
 }
 
-char	*ft_strjoin(char const *res, char const *buff)
+char	*ft_strjoin_gnl(char const *res, char const *buff)
 {
 	size_t	i;
 	size_t	j;

@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:20:47 by lkrief            #+#    #+#             */
-/*   Updated: 2022/11/14 15:25:02 by lkrief           ###   ########.fr       */
+/*   Updated: 2022/11/29 01:35:22 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@
 # include <fcntl.h>
 
 //get_next_line_utils.c
-size_t	ft_strlen(const char *s);
-int		ft_belongs(const char *set, char s);
-void	ft_reset(char *buff);
-char	*ft_strjoin(char const *res, char const *buff);
+size_t	ft_strlen_gnl(const char *s);
+int		ft_belongs_gnl(const char *set, char s);
+void	ft_reset_gnl(char *buff);
+char	*ft_strjoin_gnl(char const *res, char const *buff);
 
 //get_next_line.c
-void	aux(char **res, char *buff);
-char	*one_line(char *buff, int fd);
+void	aux_gnl(char **res, char *buff);
+char	*one_line_gnl(char *buff, int fd);
 char	*get_next_line(int fd);
 
 #endif

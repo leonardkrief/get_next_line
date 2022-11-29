@@ -6,13 +6,13 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 21:12:39 by lkrief            #+#    #+#             */
-/*   Updated: 2022/11/14 15:28:09 by lkrief           ###   ########.fr       */
+/*   Updated: 2022/11/29 01:35:01 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	aux(char **res, char *buff)
+void	aux_gnl(char **res, char *buff)
 {
 	char	*tmp;
 
@@ -22,7 +22,7 @@ void	aux(char **res, char *buff)
 		free(tmp);
 }
 
-char	*one_line(char *buff, int fd)
+char	*one_line_gnl(char *buff, int fd)
 {
 	int		ret;
 	char	*res;
