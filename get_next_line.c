@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 21:12:39 by lkrief            #+#    #+#             */
-/*   Updated: 2022/11/29 01:35:01 by lkrief           ###   ########.fr       */
+/*   Updated: 2022/12/04 06:33:12 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	aux_gnl(char **res, char *buff)
 	char	*tmp;
 
 	tmp = *res;
-	*res = ft_strjoin(*res, buff);
+	*res = ft_strjoin_gnl(*res, buff);
 	if (tmp)
 		free(tmp);
 }
@@ -29,21 +29,21 @@ char	*one_line_gnl(char *buff, int fd)
 
 	res = NULL;
 	ret = 0;
-	aux(&res, buff);
-	if (!ft_belongs(buff, '\n'))
+	aux_gnl(&res, buff);
+	if (!ft_belongs_gnl(buff, '\n'))
 		ret = read(fd, buff, BUFFER_SIZE);
-	while (ret && !ft_belongs(buff, '\n'))
+	while (ret && !ft_belongs_gnl(buff, '\n'))
 	{
 		buff[ret] = '\0';
-		aux(&res, buff);
+		aux_gnl(&res, buff);
 		ret = read(fd, buff, BUFFER_SIZE);
 	}
 	if (ret)
 	{
 		buff[ret] = '\0';
-		aux(&res, buff);
+		aux_gnl(&res, buff);
 	}
-	ft_reset(buff);
+	ft_reset_gnl(buff);
 	return (res);
 }
 
@@ -53,5 +53,5 @@ char	*get_next_line(int fd)
 
 	if (BUFFER_SIZE < 1 || read(fd, NULL, 0) < 0)
 		return (NULL);
-	return (one_line(buff, fd));
+	return (one_line_gnl(buff, fd));
 }

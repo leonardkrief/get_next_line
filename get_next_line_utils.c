@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 21:21:51 by lkrief            #+#    #+#             */
-/*   Updated: 2022/11/29 01:34:47 by lkrief           ###   ########.fr       */
+/*   Updated: 2022/12/04 06:33:27 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ char	*ft_strjoin_gnl(char const *res, char const *buff)
 	if (buff[0] == 0)
 		return (NULL);
 	if (res == NULL)
-		join = malloc(sizeof(*join) * (ft_strlen(buff) + 1));
+		join = malloc(sizeof(*join) * (ft_strlen_gnl(buff) + 1));
 	else
-		join = malloc(sizeof(*join) * (ft_strlen(res) + ft_strlen(buff) + 1));
+		join = malloc(sizeof(*join) * (ft_strlen_gnl(res) + ft_strlen_gnl(buff) + 1));
 	if (!join)
 		return (NULL);
 	i = 0;
@@ -79,4 +79,9 @@ char	*ft_strjoin_gnl(char const *res, char const *buff)
 		join[j++] = '\n';
 	join[j] = '\0';
 	return (join);
+}
+
+int main()
+{
+	return (0);
 }
